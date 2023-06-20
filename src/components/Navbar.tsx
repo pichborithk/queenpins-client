@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
-type Props = {
-  setToken: Dispatch<SetStateAction<string>>;
-};
+// type Props = {
+//   setToken: Dispatch<SetStateAction<string>>;
+// };
 
-const Navbar = ({ setToken }: Props) => {
+const Navbar = () => {
   // function handleSignOut() {
   //   localStorage.clear();
   //   setRoute('home');
@@ -22,72 +22,36 @@ const Navbar = ({ setToken }: Props) => {
         <div className='flex justify-between gap-2'>
           <Link
             to='/'
-            onClick={() => setRoute('home')}
-            className={`border-primary-500 px-4 py-2  hover:border-b-4 ${
-              route === 'home' ? 'text-primary-500 border-b-4 uppercase' : ''
-            }`}
+            className='border-purple-500 px-4 py-2  hover:border-b-4'
           >
             Home
           </Link>
-          <Link
-            to='/pricing'
-            onClick={() => setRoute('pricing')}
-            className={`border-primary-500 px-4 py-2 hover:border-b-4 ${
-              route === 'pricing' ? 'text-primary-500 border-b-4 uppercase' : ''
-            }`}
-          >
+          <Link to='/' className='border-purple-500 px-4 py-2 hover:border-b-4'>
             About
           </Link>
-          <Link
-            to='/routines'
-            onClick={() => setRoute('routines')}
-            className={`border-primary-500 px-4 py-2 hover:border-b-4 ${
-              route === 'routines'
-                ? 'text-primary-500 border-b-4 uppercase'
-                : ''
-            }`}
-          >
+          <Link to='/' className='border-purple-500 px-4 py-2 hover:border-b-4'>
             Contact
           </Link>
           <Link
-            to='/activities'
-            onClick={() => setRoute('activities')}
-            className={`border-primary-500 px-4 py-2 hover:border-b-4 ${
-              route === 'activities'
-                ? 'text-primary-500 border-b-4 uppercase'
-                : ''
-            }`}
+            to='/cart'
+            className='border-purple-500 px-4 py-2 hover:border-b-4'
           >
             Cart
           </Link>
-          {userData.username && (
-            <Link
-              to='/profile'
-              onClick={() => setRoute('profile')}
-              className={`border-primary-500 px-4 py-2 hover:border-b-4 ${
-                route === 'profile'
-                  ? 'text-primary-500 border-b-4 uppercase'
-                  : ''
-              }`}
-            >
-              Profile
-            </Link>
-          )}
         </div>
         {userData.username && (
           <Link
             to='/'
             onClick={handleSignOut}
-            className='border-primary-100 bg-primary-100 text-primary-600 hover:border-primary-600 rounded-md border-2 px-4 py-2 text-xl hover:bg-inherit'
+            className='rounded-md border-2 border-purple-100 bg-purple-100 px-4 py-2 text-xl text-purple-600 hover:border-purple-600 hover:bg-inherit'
           >
             Sign Out
           </Link>
         )}
-        {!userData.username && route === 'register' && (
+        {!userData.username && (
           <Link
             to='/login'
-            onClick={() => setRoute('login')}
-            className='border-primary-500 text-primary-500 hover:bg-primary-600 hover:text-primary-100 rounded-md border-2 px-4 py-2 text-xl'
+            className='rounded-md border-2 border-purple-500 px-4 py-2 text-xl text-purple-500 hover:bg-purple-600 hover:text-purple-100'
           >
             Sign In
           </Link>
@@ -96,7 +60,7 @@ const Navbar = ({ setToken }: Props) => {
           <Link
             to='/register'
             onClick={() => setRoute('register')}
-            className='bg-primary-600 text-primary-100 hover:border-primary-600 rounded-md border-2 border-slate-900 px-4 py-2 text-xl'
+            className='rounded-md border-2 border-slate-900 bg-purple-600 px-4 py-2 text-xl text-purple-100 hover:border-purple-600'
           >
             Join Us
           </Link>
