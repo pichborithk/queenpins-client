@@ -25,8 +25,8 @@ const Navbar = ({ setToken, userData, setUserData }: Props) => {
 
   return (
     <nav className='mb-12 text-2xl font-bold text-purple-500'>
-      <div className='mx-auto mb-4 flex max-w-7xl items-center justify-between px-2 py-2'>
-        <div className='flex justify-between gap-2'>
+      <div className='mx-auto mb-4 grid max-w-7xl grid-flow-col grid-cols-3 items-center justify-between px-2 py-2'>
+        <div className='flex gap-2'>
           <Link
             to='/'
             className='border-b-4 border-transparent px-4 py-2 hover:border-purple-500'
@@ -46,8 +46,19 @@ const Navbar = ({ setToken, userData, setUserData }: Props) => {
             Contact
           </Link>
         </div>
-        <img src={logo} alt='logo' className='max-h-20' />
-        <div className='flex justify-between gap-4'>
+        <div className='flex justify-center'>
+          <img src={logo} alt='logo' className='max-h-20' />
+        </div>
+        <div className='flex justify-end gap-2'>
+          {userData.type === 'admin' && (
+            <Link
+              to='/dashboard'
+              className='border-b-4 border-transparent px-4 py-2 hover:border-purple-500'
+            >
+              Dashboard
+            </Link>
+          )}
+
           <Link
             to='/cart'
             className='border-b-4 border-transparent px-4 py-2 hover:border-purple-500'
@@ -58,7 +69,7 @@ const Navbar = ({ setToken, userData, setUserData }: Props) => {
             <Link
               to='/'
               onClick={handleSignOut}
-              className='rounded-md border-2 border-purple-100 bg-purple-100 px-4 py-2 text-xl text-purple-600 hover:border-purple-600 hover:bg-inherit'
+              className='rounded-md border-2 border-purple-600  px-4 py-2 text-xl text-purple-600 hover:bg-inherit hover:bg-purple-600 hover:text-purple-50'
             >
               Sign Out
             </Link>

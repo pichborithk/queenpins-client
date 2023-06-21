@@ -5,7 +5,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
 import Root from './Root';
-import { Cart, ErrorPage, Home, Login, Register, ViewProduct } from './routes';
+import {
+  Cart,
+  Dashboard,
+  ErrorPage,
+  Home,
+  Login,
+  Register,
+  ViewProduct,
+} from './routes';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +38,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'cart', element: <Cart /> },
+      { path: 'dashboard', element: <Dashboard /> },
     ],
   },
 ]);
