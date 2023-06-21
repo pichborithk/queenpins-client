@@ -23,6 +23,7 @@ type UserData = {
   id: number | null;
   email: string;
   name: string;
+  type: string;
 };
 
 type Product = {

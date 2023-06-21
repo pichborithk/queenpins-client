@@ -19,7 +19,7 @@ const Navbar = ({ setToken, userData, setUserData }: Props) => {
   function handleSignOut() {
     localStorage.clear();
     setToken('');
-    setUserData({ id: null, name: '', email: '' });
+    setUserData({ id: null, name: '', email: '', type: '' });
     toast.success('Logged Out');
   }
 
