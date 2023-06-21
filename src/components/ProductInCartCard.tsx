@@ -7,7 +7,11 @@ type Props = {
 const ProductInCartCard = ({ product }: Props) => {
   return (
     <div className='flex bg-slate-100'>
-      <img src={product.photo} alt={product.name} className='max-w-[200px]' />
+      <img
+        src={product.photos[0].url}
+        alt={product.name}
+        className='max-w-[200px]'
+      />
       <div className='px-8 py-2'>
         <h2 className='text-3xl font-bold'>{product.name}</h2>
         <h3 className='text-2xl'>$ {product.price}</h3>

@@ -8,6 +8,11 @@ type RootContext = {
   products: Product[];
   cart: ProductAddToCart[];
   setCart: Dispatch<SetStateAction<ProductAddToCart[]>>;
+  mergeUserCart: (
+    token: string,
+    local_cart: ProductAddToCart[]
+  ) => Promise<void>;
+  getUserCart: (token: string) => Promise<void>;
 };
 
 type RegisterData = {
@@ -31,9 +36,10 @@ type UserData = {
 type ProductAddToCart = {
   id: number;
   name: string;
+  description: string;
   price: string;
   quantity: number;
-  photo: string;
+  photos: Photo[];
 };
 
 type Product = {

@@ -1,11 +1,12 @@
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
-import { RootContext } from '../type';
+import { ProductAddToCart, RootContext } from '../type';
 import { FormEvent, useEffect, useState } from 'react';
 import { userLogin } from '../helpers/fetchUsers';
 import { toast } from 'react-hot-toast';
 
 const Login = () => {
-  const { token, setToken, setUserData } = useOutletContext<RootContext>();
+  const { token, setToken, setUserData, mergeUserCart, getUserCart } =
+    useOutletContext<RootContext>();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -38,6 +39,15 @@ const Login = () => {
           name: result.data.name,
           type: result.data.type,
         });
+
+        const local_data = localStorage.getItem('CART');
+        if (local_data) {
+          const local_cart: ProductAddToCart[] = JSON.parse(local_data);
+          await mergeUserCart(result.data.token, local_cart);
+        } else {
+          await getUserCart(result.data.token);
+        }
+
         navigate('/');
         toast.success('Logged In');
       }
