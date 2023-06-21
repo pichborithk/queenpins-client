@@ -47,6 +47,7 @@ const Register = () => {
           id: result.data.id,
           email: result.data.email,
           name: result.data.name,
+          type: result.data.type,
         });
         navigate('/');
         toast.success('Registration success');

@@ -60,7 +60,6 @@ const Login = () => {
           Email
         </label>
         <input
-          autoComplete='off'
           type='email'
           name='email'
           placeholder='Enter Email'
