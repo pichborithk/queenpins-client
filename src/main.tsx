@@ -7,6 +7,7 @@ import './index.css';
 import Root from './Root';
 import {
   Cart,
+  Checkout,
   Dashboard,
   ErrorPage,
   Home,
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'cart', element: <Cart /> },
+      { path: 'checkout', element: <Checkout /> },
       { path: 'dashboard', element: <Dashboard /> },
     ],
   },

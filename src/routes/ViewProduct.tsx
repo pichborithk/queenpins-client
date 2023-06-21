@@ -3,6 +3,7 @@ import { RootContext } from '../type';
 import { ImageCard } from '../components';
 import { useState } from 'react';
 import { addProductToCart } from '../helpers/fetchCarts';
+import { toast } from 'react-hot-toast';
 
 const ViewProduct = () => {
   const { token, products, cart, setCart } = useOutletContext<RootContext>();
@@ -35,8 +36,6 @@ const ViewProduct = () => {
       return p;
     });
 
-    console.log(productAdd.quantity, orderAmount);
-
     if (productAdd.quantity === orderAmount) {
       new_cart.push(productAdd);
     }
@@ -47,6 +46,7 @@ const ViewProduct = () => {
 
     setCart(new_cart);
     localStorage.setItem('CART', JSON.stringify(new_cart));
+    toast.success('Added product to cart');
   }
 
   return (
