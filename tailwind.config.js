@@ -9,7 +9,7 @@ export default {
         lora: ['Lora', 'san-serif'],
       },
       boxShadow: {
-        full: '0px 0px 5px 1px rgba(0,0,0,0.1)',
+        full: '0px 0px 5px 1px rgba(0,0,0,0.2)',
       },
     },
   },

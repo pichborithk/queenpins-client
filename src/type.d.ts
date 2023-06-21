@@ -6,6 +6,8 @@ type RootContext = {
   userData: UserData;
   setUserData: Dispatch<SetStateAction<UserData>>;
   products: Product[];
+  cart: ProductAddToCart[];
+  setCart: Dispatch<SetStateAction<ProductAddToCart[]>>;
 };
 
 type RegisterData = {
@@ -26,11 +28,19 @@ type UserData = {
   type: string;
 };
 
+type ProductAddToCart = {
+  id: number;
+  name: string;
+  price: string;
+  quantity: number;
+  photo: string;
+};
+
 type Product = {
   id: number;
   name: string;
   description: string;
-  price: number;
+  price: string;
   quantity: number;
   reviews: Review[];
   photos: Photo[];
