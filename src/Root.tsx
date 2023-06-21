@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Product, UserData } from './type';
+import { Product, ProductAddToCart, UserData } from './type';
 
 import { Navbar, Notification, ScrollToTop } from './components';
 import { fetchProducts } from './helpers/fetchProducts';
 import { fetchUserData } from './helpers/fetchUsers';
 
-const initialToken: string = localStorage.getItem('TOKEN') || '';
-
 const Root = () => {
-  const [token, setToken] = useState(initialToken);
+  const [token, setToken] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
+  const [cart, setCart] = useState<ProductAddToCart[]>([]);
   const [userData, setUserData] = useState<UserData>({
     id: null,
     name: '',
     email: '',
+    type: '',
   });
 
   async function getUserData(token: string) {
@@ -30,8 +30,17 @@ const Root = () => {
   }
 
   useEffect(() => {
-    if (token) {
-      getUserData(token);
+    const initialToken: string = localStorage.getItem('TOKEN') || '';
+    const local_data = localStorage.getItem('CART');
+
+    if (local_data) {
+      const local_cart: ProductAddToCart[] = JSON.parse(local_data);
+      setCart(local_cart);
+    }
+
+    if (initialToken) {
+      setToken(initialToken);
+      getUserData(initialToken);
     }
   }, []);
 
@@ -59,9 +68,17 @@ const Root = () => {
         userData={userData}
         setUserData={setUserData}
       />
-      <div className='mx-auto mb-8 flex min-h-screen max-w-7xl flex-col items-center gap-4 px-2'>
+      <div className='mx-auto mb-8 flex min-h-screen max-w-7xl flex-col items-center gap-4 px-20'>
         <Outlet
-          context={{ products, userData, setUserData, token, setToken }}
+          context={{
+            products,
+            userData,
+            setUserData,
+            token,
+            setToken,
+            cart,
+            setCart,
+          }}
         />
       </div>
     </>
