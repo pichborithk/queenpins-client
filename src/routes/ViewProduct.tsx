@@ -2,9 +2,10 @@ import { useOutletContext, useParams } from 'react-router-dom';
 import { RootContext } from '../type';
 import { ImageCard } from '../components';
 import { useState } from 'react';
+import { addProductToCart } from '../helpers/fetchCarts';
 
 const ViewProduct = () => {
-  const { products, cart, setCart } = useOutletContext<RootContext>();
+  const { token, products, cart, setCart } = useOutletContext<RootContext>();
 
   const { productId } = useParams();
   const [orderAmount, setOrderAmount] = useState(1);
@@ -14,7 +15,7 @@ const ViewProduct = () => {
     return <div>Not Found</div>;
   }
 
-  function handleAddToCart() {
+  async function handleAddToCart() {
     if (!product) return;
 
     const productAdd = {
@@ -28,14 +29,20 @@ const ViewProduct = () => {
 
     const new_cart = cart.map(p => {
       if (p.id === productAdd.id) {
-        p.quantity += productAdd.quantity;
-        productAdd.quantity = 0;
+        productAdd.quantity += p.quantity;
+        return productAdd;
       }
       return p;
     });
 
-    if (productAdd.quantity > 0) {
+    console.log(productAdd.quantity, orderAmount);
+
+    if (productAdd.quantity === orderAmount) {
       new_cart.push(productAdd);
+    }
+
+    if (token) {
+      await addProductToCart(token, productAdd.id, productAdd.quantity);
     }
 
     setCart(new_cart);
