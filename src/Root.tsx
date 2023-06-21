@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { Product, UserData } from './type';
 
-import { Notification, ScrollToTop } from './components';
+import { Navbar, Notification, ScrollToTop } from './components';
 import { fetchProducts } from './helpers/fetchProducts';
 import { fetchUserData } from './helpers/fetchUsers';
 
@@ -54,6 +54,11 @@ const Root = () => {
     <>
       <ScrollToTop />
       <Notification />
+      <Navbar
+        setToken={setToken}
+        userData={userData}
+        setUserData={setUserData}
+      />
       <div className='mx-auto mb-8 flex min-h-screen max-w-7xl flex-col items-center gap-4 px-2'>
         <Outlet
           context={{ products, userData, setUserData, token, setToken }}
