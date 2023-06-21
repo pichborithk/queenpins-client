@@ -20,8 +20,9 @@ const ViewProduct = () => {
     const productAdd = {
       id: product.id,
       name: product.name,
+      description: product.description,
       price: product.price,
-      photo: product.photos[0].url,
+      photos: product.photos,
       quantity: orderAmount,
     };
 
