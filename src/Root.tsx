@@ -47,7 +47,6 @@ const Root = () => {
     try {
       const result = await fetchUserCart(token);
       if (!result.data) return;
-      console.log(result);
       const database_cart = result.data;
 
       if (database_cart.length <= 0) {

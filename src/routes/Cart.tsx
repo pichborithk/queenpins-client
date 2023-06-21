@@ -1,13 +1,24 @@
 import { useOutletContext } from 'react-router-dom';
 import { RootContext } from '../type';
 import { ProductInCartCard } from '../components';
+import { checkOutCart } from '../helpers/fetchCheckout';
 
 const Cart = () => {
-  const { cart } = useOutletContext<RootContext>();
+  const { token, cart } = useOutletContext<RootContext>();
   const totalPrice = cart
     .map(product => parseInt(product.price) * Number(product.quantity))
     .reduce((a, b) => a + b, 0)
     .toFixed(2);
+
+  async function handleCheckOut() {
+    try {
+      const result = await checkOutCart(token, cart);
+
+      location.replace(result.data.url);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <>
@@ -20,7 +31,10 @@ const Cart = () => {
         <div className='px-4 text-right'>
           <h2 className='text-3xl font-bold'>Total</h2>
           <h2 className='text-2xl font-bold'>$ {totalPrice}</h2>
-          <button className='mt-4 w-fit bg-purple-600 px-4 py-2 text-purple-50'>
+          <button
+            className='mt-4 w-fit bg-purple-600 px-4 py-2 text-purple-50'
+            onClick={handleCheckOut}
+          >
             Check Out
           </button>
         </div>

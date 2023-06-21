@@ -70,7 +70,7 @@ const Login = () => {
           Email
         </label>
         <input
-          type='email'
+          type='text'
           name='email'
           placeholder='Enter Email'
           value={email}
