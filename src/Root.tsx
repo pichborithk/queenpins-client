@@ -35,6 +35,7 @@ const Root = () => {
       const result = await fetchUserCart(token);
       if (result.data) {
         setCart(result.data);
+        console.log(result.data);
         localStorage.setItem('CART', JSON.stringify(result.data));
       }
     } catch (error) {
@@ -61,7 +62,7 @@ const Root = () => {
         for (let j = 0; j < database_cart.length; j++) {
           if (local_cart[i].id === database_cart[j].id) {
             local_cart[i].quantity += database_cart[j].quantity;
-            database_cart.splice(i, 1);
+            database_cart.splice(j, 1);
             break;
           }
         }
@@ -118,6 +119,7 @@ const Root = () => {
         setToken={setToken}
         userData={userData}
         setUserData={setUserData}
+        setCart={setCart}
       />
       <div className='mx-auto mb-8 flex min-h-screen max-w-7xl flex-col items-center gap-4 px-20'>
         <Outlet

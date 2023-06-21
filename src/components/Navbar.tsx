@@ -4,15 +4,16 @@ import { Link, useLocation } from 'react-router-dom';
 
 import logo from '../assets/Quennpins_2.png';
 
-import { UserData } from '../type';
+import { ProductAddToCart, UserData } from '../type';
 
 type Props = {
   setToken: Dispatch<SetStateAction<string>>;
   userData: UserData;
   setUserData: Dispatch<SetStateAction<UserData>>;
+  setCart: Dispatch<SetStateAction<ProductAddToCart[]>>;
 };
 
-const Navbar = ({ setToken, userData, setUserData }: Props) => {
+const Navbar = ({ setToken, userData, setUserData, setCart }: Props) => {
   const { pathname } = useLocation();
   const [route] = pathname.match(/\w+/) || '';
 
@@ -20,6 +21,7 @@ const Navbar = ({ setToken, userData, setUserData }: Props) => {
     localStorage.clear();
     setToken('');
     setUserData({ id: null, name: '', email: '', type: '' });
+    setCart([]);
     toast.success('Logged Out');
   }
 
