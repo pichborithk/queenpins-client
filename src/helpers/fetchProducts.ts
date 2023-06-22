@@ -56,3 +56,17 @@ export async function updateProduct(
 
   return await response.json();
 }
+
+export async function deleteProduct(
+  token: string,
+  productId: number
+): Promise<CreateProduct> {
+  const response = await fetch(`${BASE_URL}/products/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return await response.json();
+}
