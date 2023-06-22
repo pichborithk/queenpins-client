@@ -1,4 +1,9 @@
-import { useOutletContext, useParams } from 'react-router-dom';
+import {
+  Outlet,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from 'react-router-dom';
 import { RootContext } from '../type';
 import { ImageCard } from '../components';
 import { useState } from 'react';
@@ -6,7 +11,9 @@ import { addProductToCart } from '../helpers/fetchCarts';
 import { toast } from 'react-hot-toast';
 
 const ViewProduct = () => {
-  const { token, products, cart, setCart } = useOutletContext<RootContext>();
+  const { token, products, cart, setCart, userData, setProducts } =
+    useOutletContext<RootContext>();
+  const navigate = useNavigate();
 
   const { productId } = useParams();
   const [orderAmount, setOrderAmount] = useState(1);
@@ -52,7 +59,7 @@ const ViewProduct = () => {
   return (
     <>
       <div className='flex gap-8'>
-        <div className='flex max-w-[120px] flex-col'>
+        <div className='flex max-w-[120px] flex-col gap-2'>
           {product.photos.map((photo, index) => (
             <ImageCard url={photo.url} productName={product.name} key={index} />
           ))}
@@ -63,33 +70,47 @@ const ViewProduct = () => {
         <div className='flex flex-1 flex-col gap-4'>
           <h2 className='text-3xl font-bold'>{product.name}</h2>
           <h3 className='text-2xl'>$ {product.price}</h3>
+          <p>{product.quantity} left in Stock</p>
           <p>{product.description}</p>
-          <div className='flex items-center gap-4'>
+          {userData.type === 'user' && (
+            <>
+              <div className='flex items-center gap-4'>
+                <button
+                  className='border px-2 active:bg-purple-100'
+                  onClick={() => setOrderAmount(orderAmount - 1)}
+                  disabled={orderAmount <= 1}
+                >
+                  -
+                </button>
+                <p>{orderAmount}</p>
+                <button
+                  className='border px-2 active:bg-purple-100'
+                  onClick={() => setOrderAmount(orderAmount + 1)}
+                >
+                  +
+                </button>
+              </div>
+              <button
+                className='w-fit bg-purple-600 px-4 py-2 text-purple-50'
+                onClick={handleAddToCart}
+              >
+                Add to Cart
+              </button>
+            </>
+          )}
+          {userData.type === 'admin' && (
             <button
-              className='border px-2 active:bg-purple-100'
-              onClick={() => setOrderAmount(orderAmount - 1)}
-              disabled={orderAmount <= 1}
+              className='w-fit bg-purple-600 px-6 py-2 text-purple-50'
+              onClick={() => navigate(`/products/${product.id}/edit`)}
             >
-              -
+              Edit
             </button>
-            <p>{orderAmount}</p>
-            <button
-              className='border px-2 active:bg-purple-100'
-              onClick={() => setOrderAmount(orderAmount + 1)}
-            >
-              +
-            </button>
-          </div>
-          <button
-            className='w-fit bg-purple-600 px-4 py-2 text-purple-50'
-            onClick={handleAddToCart}
-          >
-            Add to Cart
-          </button>
+          )}
         </div>
       </div>
-      <div>
-        <h1 className='text-4xl font-bold'>Reviews</h1>
+      <hr className='my-4 w-full' />
+      <div className='flex w-full justify-center'>
+        <Outlet context={{ token, setProducts, product }} />
       </div>
     </>
   );

@@ -7,3 +7,5 @@ export { default as Cart } from './Cart';
 export { default as Dashboard } from './Dashboard';
 export { default as Checkout } from './Checkout';
 export { default as AddProduct } from './AddProduct';
+export { default as EditProduct } from './EditProduct';
+export { default as Reviews } from './Reviews';

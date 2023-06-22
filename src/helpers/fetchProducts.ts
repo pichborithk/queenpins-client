@@ -39,3 +39,20 @@ export async function createProduct(
 
   return await response.json();
 }
+
+export async function updateProduct(
+  token: string,
+  productId: number,
+  data: NewProductData
+): Promise<CreateProduct> {
+  const response = await fetch(`${BASE_URL}/products/${productId}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  return await response.json();
+}
