@@ -10,10 +10,12 @@ import {
   Cart,
   Checkout,
   Dashboard,
+  EditProduct,
   ErrorPage,
   Home,
   Login,
   Register,
+  Reviews,
   ViewProduct,
 } from './routes';
 
@@ -37,7 +39,14 @@ const router = createBrowserRouter([
             element: <Home />,
           },
           { path: 'new', element: <AddProduct /> },
-          { path: ':productId', element: <ViewProduct /> },
+          {
+            path: ':productId',
+            element: <ViewProduct />,
+            children: [
+              { index: true, element: <Reviews /> },
+              { path: 'edit', element: <EditProduct /> },
+            ],
+          },
         ],
       },
       { path: 'cart', element: <Cart /> },

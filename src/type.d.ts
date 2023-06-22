@@ -16,6 +16,12 @@ type RootContext = {
   setProducts: Dispatch<SetStateAction<Product[]>>;
 };
 
+type ViewProductContext = {
+  token: string;
+  setProducts: Dispatch<SetStateAction<Product[]>>;
+  product: Product;
+};
+
 type RegisterData = {
   email: string;
   name: string;
