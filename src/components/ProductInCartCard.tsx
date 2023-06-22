@@ -17,6 +17,11 @@ const ProductInCartCard = ({ product, token, setCart }: Props) => {
   const [orderAmount, setOrderAmount] = useState(product.quantity);
 
   async function handleUpdate() {
+    if (product.quantity === orderAmount) {
+      setIsEditing(false);
+      return;
+    }
+
     try {
       const result = await updateProductInCart(token, product.id, orderAmount);
       if (result.success) {

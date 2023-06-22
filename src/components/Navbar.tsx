@@ -54,19 +54,21 @@ const Navbar = ({ setToken, userData, setUserData, setCart }: Props) => {
         <div className='flex justify-end gap-2'>
           {userData.type === 'admin' && (
             <Link
-              to='/dashboard'
+              to='/products/new'
               className='border-b-4 border-transparent px-4 py-2 hover:border-purple-500'
             >
-              Dashboard
+              Add Product
+            </Link>
+          )}
+          {userData.type === 'user' && (
+            <Link
+              to='/cart'
+              className='border-b-4 border-transparent px-4 py-2 hover:border-purple-500'
+            >
+              Cart
             </Link>
           )}
 
-          <Link
-            to='/cart'
-            className='border-b-4 border-transparent px-4 py-2 hover:border-purple-500'
-          >
-            Cart
-          </Link>
           {userData.email && (
             <Link
               to='/'
