@@ -41,6 +41,22 @@ export async function addProductToCart(
   return await response.json();
 }
 
+export async function updateProductInCart(
+  token: string,
+  productId: number,
+  quantity: number
+): Promise<FetchProductInCart> {
+  const response = await fetch(`${BASE_URL}/carts`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ productId, quantity }),
+  });
+  return await response.json();
+}
+
 export async function removeProductInCart(
   token: string,
   productId: number
