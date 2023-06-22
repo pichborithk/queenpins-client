@@ -4,7 +4,7 @@ import { ProductInCartCard } from '../components';
 import { checkOutCart } from '../helpers/fetchCheckout';
 
 const Cart = () => {
-  const { token, cart } = useOutletContext<RootContext>();
+  const { token, cart, setCart } = useOutletContext<RootContext>();
   const totalPrice = cart
     .map(product => parseInt(product.price) * Number(product.quantity))
     .reduce((a, b) => a + b, 0)
@@ -25,7 +25,12 @@ const Cart = () => {
       <h1 className='text-4xl font-bold text-purple-600'>CART</h1>
       <div className='flex w-full flex-col gap-4 rounded-lg p-4 shadow-full'>
         {cart.map(product => (
-          <ProductInCartCard key={product.id} product={product} />
+          <ProductInCartCard
+            key={product.id}
+            product={product}
+            token={token}
+            setCart={setCart}
+          />
         ))}
         <hr />
         <div className='px-4 text-right'>
