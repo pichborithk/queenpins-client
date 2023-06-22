@@ -13,6 +13,7 @@ type RootContext = {
     local_cart: ProductAddToCart[]
   ) => Promise<void>;
   getUserCart: (token: string) => Promise<void>;
+  setProducts: Dispatch<SetStateAction<Product[]>>;
 };
 
 type RegisterData = {
@@ -62,4 +63,12 @@ type Review = {
   userId: number;
   email: string;
   name: string;
+};
+
+type NewProductData = {
+  name: string;
+  description: string;
+  price: string;
+  quantity: number;
+  urls: string[];
 };

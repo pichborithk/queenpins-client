@@ -35,7 +35,7 @@ const Root = () => {
       const result = await fetchUserCart(token);
       if (result.data) {
         setCart(result.data);
-        console.log(result.data);
+        // console.log(result.data);
         localStorage.setItem('CART', JSON.stringify(result.data));
       }
     } catch (error) {
@@ -67,7 +67,7 @@ const Root = () => {
         }
       }
       const merge_cart = [...local_cart, ...database_cart];
-      console.log(merge_cart);
+      // console.log(merge_cart);
       setCart(merge_cart);
       localStorage.setItem('CART', JSON.stringify(merge_cart));
       merge_cart.forEach(
@@ -102,7 +102,7 @@ const Root = () => {
         setProducts(result.data.products);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -132,6 +132,7 @@ const Root = () => {
             setCart,
             mergeUserCart,
             getUserCart,
+            setProducts,
           }}
         />
       </div>

@@ -1,32 +1,27 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 type Props = {
-  value: { url: string }[];
-  setValue: Dispatch<SetStateAction<{ url: string }[]>>;
+  value: string[];
+  setValue: Dispatch<SetStateAction<string[]>>;
   name: string;
   type: string;
   required: boolean;
   label: string;
 };
 
-const DynamicInput = ({
-  value,
-  setValue,
-  name,
-  type,
-  required,
-  label,
-}: Props) => {
+const DynamicInput = (props: Props) => {
+  const { value, setValue, name, type, required, label } = props;
+
   function handleInput(index: number) {
     return function (event: ChangeEvent<HTMLInputElement>) {
       const newValue = [...value];
-      newValue[index].url = event.target.value;
+      newValue[index] = event.target.value;
       setValue(newValue);
     };
   }
 
   function addField() {
-    setValue([...value, { url: '' }]);
+    setValue([...value, '']);
   }
 
   function removeField(index: number) {
@@ -38,13 +33,17 @@ const DynamicInput = ({
   return (
     <div className='flex w-full flex-col gap-2'>
       {value.map((element, index) => (
-        <fieldset className='group relative flex w-full gap-2 text-purple-500'>
+        <fieldset
+          className='group relative flex w-full gap-2 text-purple-500'
+          key={index}
+        >
           <label
             htmlFor={name + (index + 1)}
             className={`pointer-events-none absolute left-4 top-2 bg-purple-100 px-2 focus-within:text-purple-500 group-focus-within:-translate-x-1 group-focus-within:-translate-y-5 group-focus-within:text-base group-focus-within:text-purple-500
-     ${
-       element.url && '-translate-x-1 -translate-y-5 text-base text-purple-500'
-     }`}
+            ${
+              element &&
+              '-translate-x-1 -translate-y-5 text-base text-purple-500'
+            }`}
           >
             {label}
           </label>
@@ -53,7 +52,7 @@ const DynamicInput = ({
             type={type}
             id={name + (index + 1)}
             required={required}
-            value={element.url}
+            value={element}
             onChange={handleInput(index)}
             className='flex-1 rounded-md border border-slate-400 bg-inherit px-4  py-2 focus:outline-purple-500'
           />

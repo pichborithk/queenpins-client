@@ -10,12 +10,20 @@ const ProductCard = ({ product }: Props) => {
 
   return (
     <div
-      className='cursor-pointer shadow-full'
+      className='group flex h-80 cursor-pointer flex-col gap-2 rounded-md p-2 shadow-full'
       onClick={() => navigate(`/products/${product.id}`)}
     >
-      <img src={product.photos[0].url} alt={product.name} />
-      <h3>{product.name}</h3>
-      <h3>$ {product.price}</h3>
+      <div className='flex flex-1 justify-center'>
+        <img
+          src={product.photos[0]?.url}
+          alt={product.name}
+          className='h-full object-cover group-hover:scale-105'
+        />
+      </div>
+      <div className=''>
+        <h3 className='text-xl font-bold'>{product.name}</h3>
+        <h3>$ {product.price}</h3>
+      </div>
     </div>
   );
 };
