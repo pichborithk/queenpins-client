@@ -11,11 +11,11 @@ type Props = {
 
 const Input = ({ value, setValue, required, name, type, label }: Props) => {
   return (
-    <fieldset className='group relative flex w-full flex-col'>
+    <fieldset className='group relative flex w-full flex-col text-purple-500'>
       <label
         htmlFor={name}
-        className={`focus-within:text-primary-500 group-focus-within:text-primary-500 pointer-events-none absolute left-4 top-2 bg-slate-900 px-2 group-focus-within:-translate-x-1 group-focus-within:-translate-y-5 group-focus-within:text-base
-    ${value && 'text-primary-500 -translate-x-1 -translate-y-5 text-base'}`}
+        className={`pointer-events-none absolute left-4 top-2 bg-purple-100 px-2 focus-within:text-purple-500 group-focus-within:-translate-x-1 group-focus-within:-translate-y-5 group-focus-within:text-base group-focus-within:text-purple-500
+    ${value && '-translate-x-1 -translate-y-5 text-base text-purple-500'}`}
       >
         {label}
       </label>
@@ -26,7 +26,7 @@ const Input = ({ value, setValue, required, name, type, label }: Props) => {
         required={required}
         value={value}
         onChange={event => setValue(event.target.value)}
-        className='focus:outline-primary-500 rounded-md border border-slate-400 bg-inherit px-4  py-2'
+        className='rounded-md border border-slate-400 bg-inherit px-4 py-2  focus:outline-purple-500'
       />
     </fieldset>
   );

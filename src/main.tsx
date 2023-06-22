@@ -6,6 +6,7 @@ import './index.css';
 
 import Root from './Root';
 import {
+  AddProduct,
   Cart,
   Checkout,
   Dashboard,
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
             index: true,
             element: <Home />,
           },
+          { path: 'new', element: <AddProduct /> },
           { path: ':productId', element: <ViewProduct /> },
         ],
       },
