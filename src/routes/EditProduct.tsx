@@ -10,12 +10,13 @@ const EditProduct = () => {
     useOutletContext<ViewProductContext>();
   const navigate = useNavigate();
 
-  const [name, setName] = useState(product.name);
+  const [title, setTitle] = useState(product.title);
   const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(product.price);
   const [quantity, setQuantity] = useState(product.quantity.toString());
-  const [photos, setPhotos] = useState<string[]>(
-    product.photos.map(photo => photo.url)
+  const [type, setType] = useState(product.type);
+  const [pictures, setPictures] = useState<string[]>(
+    product.pictures.map(picture => picture.url)
   );
 
   function handleSubmit(
@@ -59,18 +60,18 @@ const EditProduct = () => {
   return (
     <form
       onSubmit={handleSubmit(token, product.id, {
-        name,
+        title,
         description,
         price,
         quantity: Number(quantity),
-        urls: photos,
+        urls: pictures,
       })}
-      className='shadow-full_white relative flex w-1/2 flex-col items-center justify-evenly gap-8 rounded-2xl border bg-purple-100 px-20 py-12 text-xl text-purple-100'
+      className='relative flex w-1/2 flex-col items-center justify-evenly gap-8 rounded-2xl border bg-purple-100 px-20 py-12 text-xl text-purple-100 shadow-full'
     >
       <h1 className='text-4xl font-bold text-purple-500'>Create New Product</h1>
       <Input
-        value={name}
-        setValue={setName}
+        value={title}
+        setValue={setTitle}
         name='product-name'
         type='text'
         required={true}
@@ -101,12 +102,12 @@ const EditProduct = () => {
         label='Quantity*'
       />
       <DynamicInput
-        value={photos}
-        setValue={setPhotos}
-        name='photo'
+        value={pictures}
+        setValue={setPictures}
+        name='picture'
         type='text'
         required={true}
-        label='Photo URL'
+        label='picture URL'
       />
       <div className='w-full'>
         <button className='mb-2 w-full rounded-lg border-2 border-purple-600 px-4 py-2 font-bold text-purple-500 hover:bg-purple-600 hover:text-purple-50'>

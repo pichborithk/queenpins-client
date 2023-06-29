@@ -3,8 +3,8 @@ type Props = {
   productName: string;
 };
 
-const ImageCard = ({ url, productName }: Props) => {
+const SmallPictureCard = ({ url, productName }: Props) => {
   return <img src={url} alt={productName} />;
 };
 
-export default ImageCard;
+export default SmallPictureCard;
