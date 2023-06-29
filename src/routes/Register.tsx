@@ -5,8 +5,7 @@ import { toast } from 'react-hot-toast';
 import { registerUser } from '../helpers/fetchUsers';
 
 const Register = () => {
-  const { token, setToken, setUserData, mergeUserCart, getUserCart } =
-    useOutletContext<RootContext>();
+  const { token, setToken, getInitialData } = useOutletContext<RootContext>();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -44,21 +43,14 @@ const Register = () => {
       if (result.data) {
         setToken(result.data.token);
         localStorage.setItem('TOKEN', result.data.token);
-        setUserData({
-          id: result.data.id,
-          email: result.data.email,
-          name: result.data.name,
-          type: result.data.type,
-        });
 
-        const local_data = localStorage.getItem('CART');
-        if (local_data) {
-          const local_cart: ProductAddToCart[] = JSON.parse(local_data);
-          await mergeUserCart(result.data.token, local_cart);
-        } else {
-          await getUserCart(result.data.token);
+        const localData = localStorage.getItem('CART');
+        let localCart: ProductAddToCart[] = [];
+        if (localData) {
+          localCart = JSON.parse(localData);
         }
 
+        await getInitialData(result.data.token, localCart);
         navigate('/');
         toast.success('Registration success');
         toast.success('Logged In');

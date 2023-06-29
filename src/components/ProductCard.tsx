@@ -15,14 +15,14 @@ const ProductCard = ({ product }: Props) => {
     >
       <div className='flex flex-1 justify-center'>
         <img
-          src={product.photos[0]?.url}
-          alt={product.name}
+          src={product.pictures[0]?.url}
+          alt={product.title}
           className='h-full object-cover group-hover:scale-105'
         />
       </div>
       <div className=''>
-        <h3 className='text-xl font-bold'>{product.name}</h3>
-        <h3>$ {product.price}</h3>
+        <h3 className='text-xl font-bold'>{product.title}</h3>
+        <h3>{product.price}</h3>
       </div>
     </div>
   );

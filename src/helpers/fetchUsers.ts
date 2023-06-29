@@ -13,7 +13,7 @@ type FetchToken = {
   success: boolean;
   error: string | null;
   message: string;
-  data: (UserData & { token: string }) | null;
+  data: { token: string } | null;
 };
 
 export async function fetchUserData(token: string): Promise<FetchUser> {

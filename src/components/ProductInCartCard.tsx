@@ -58,13 +58,13 @@ const ProductInCartCard = ({ product, token, setCart }: Props) => {
   return (
     <div className='flex bg-slate-100'>
       <img
-        src={product.photos[0].url}
-        alt={product.name}
+        src={product.pictures[0].url}
+        alt={product.title}
         className='max-w-[200px]'
       />
       <div className='relative flex flex-1 flex-col justify-between gap-2 px-8 py-2'>
-        <h2 className='text-3xl font-bold'>{product.name}</h2>
-        <h3 className='text-2xl'>$ {product.price}</h3>
+        <h2 className='text-3xl font-bold'>{product.title}</h2>
+        <h3 className='text-2xl'>{product.price}</h3>
 
         {isEditing && (
           <>

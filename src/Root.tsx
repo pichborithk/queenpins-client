@@ -30,50 +30,49 @@ const Root = () => {
     }
   }
 
-  async function getUserCart(token: string) {
+  async function getUserCart(token: string, localCart: ProductAddToCart[]) {
     try {
       const result = await fetchUserCart(token);
       if (result.data) {
-        setCart(result.data);
-        // console.log(result.data);
-        localStorage.setItem('CART', JSON.stringify(result.data));
+        const mergedCart = mergeCart(localCart, result.data);
+        setCart(mergedCart);
+        localStorage.setItem('CART', JSON.stringify(mergedCart));
+        mergedCart.forEach(
+          async product =>
+            await addProductToCart(token, product.id, product.quantity)
+        );
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function mergeUserCart(token: string, local_cart: ProductAddToCart[]) {
-    try {
-      const result = await fetchUserCart(token);
-      if (!result.data) return;
-      const database_cart = result.data;
-
-      if (database_cart.length <= 0) {
-        cart.forEach(
-          async product =>
-            await addProductToCart(token, product.id, product.quantity)
-        );
-        return;
-      }
-
-      for (let i = 0; i < local_cart.length; i++) {
-        for (let j = 0; j < database_cart.length; j++) {
-          if (local_cart[i].id === database_cart[j].id) {
-            local_cart[i].quantity += database_cart[j].quantity;
-            database_cart.splice(j, 1);
+  function mergeCart(
+    localCart: ProductAddToCart[],
+    databaseCart: ProductAddToCart[]
+  ) {
+    if (databaseCart.length === 0) {
+      return localCart;
+    } else if (localCart.length === 0) {
+      return databaseCart;
+    } else {
+      for (let i = 0; i < localCart.length; i++) {
+        for (let j = 0; j < databaseCart.length; j++) {
+          if (localCart[i].id === databaseCart[j].id) {
+            localCart[i].quantity += databaseCart[j].quantity;
+            databaseCart.splice(j, 1);
             break;
           }
         }
       }
-      const merge_cart = [...local_cart, ...database_cart];
-      // console.log(merge_cart);
-      setCart(merge_cart);
-      localStorage.setItem('CART', JSON.stringify(merge_cart));
-      merge_cart.forEach(
-        async product =>
-          await addProductToCart(token, product.id, product.quantity)
-      );
+      return [...localCart, ...databaseCart];
+    }
+  }
+
+  async function getInitialData(token: string, localCart: ProductAddToCart[]) {
+    try {
+      await getUserData(token);
+      await getUserCart(token, localCart);
     } catch (error) {
       console.error(error);
     }
@@ -81,17 +80,16 @@ const Root = () => {
 
   useEffect(() => {
     const initialToken: string = localStorage.getItem('TOKEN') || '';
-    const local_data = localStorage.getItem('CART');
-
-    if (local_data) {
-      const local_cart = JSON.parse(local_data);
-      setCart(local_cart);
-    }
 
     if (initialToken) {
       setToken(initialToken);
-      getUserData(initialToken);
-      getUserCart(initialToken);
+      getInitialData(initialToken, []);
+    } else {
+      const localData = localStorage.getItem('CART');
+      if (localData) {
+        const localCart: ProductAddToCart[] = JSON.parse(localData);
+        setCart(localCart);
+      }
     }
   }, []);
 
@@ -125,14 +123,14 @@ const Root = () => {
           context={{
             products,
             userData,
-            setUserData,
+            getUserData,
             token,
             setToken,
             cart,
             setCart,
-            mergeUserCart,
-            getUserCart,
+            mergeCart,
             setProducts,
+            getInitialData,
           }}
         />
       </div>

@@ -60,7 +60,7 @@ const Navbar = ({ setToken, userData, setUserData, setCart }: Props) => {
               Add Product
             </Link>
           )}
-          {userData.type === 'user' && (
+          {userData.type !== 'admin' && (
             <Link
               to='/cart'
               className='border-b-4 border-transparent px-4 py-2 hover:border-purple-500'

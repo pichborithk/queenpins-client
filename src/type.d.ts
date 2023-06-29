@@ -4,16 +4,19 @@ type RootContext = {
   token: string;
   setToken: Dispatch<SetStateAction<string>>;
   userData: UserData;
-  setUserData: Dispatch<SetStateAction<UserData>>;
+  getUserData: (token: string) => Promise<void>;
   products: Product[];
   cart: ProductAddToCart[];
   setCart: Dispatch<SetStateAction<ProductAddToCart[]>>;
-  mergeUserCart: (
-    token: string,
-    local_cart: ProductAddToCart[]
-  ) => Promise<void>;
-  getUserCart: (token: string) => Promise<void>;
   setProducts: Dispatch<SetStateAction<Product[]>>;
+  mergeCart: (
+    localCart: ProductAddToCart[],
+    databaseCart: ProductAddToCart[]
+  ) => ProductAddToCart[];
+  getInitialData: (
+    token: string,
+    localCart: ProductAddToCart[]
+  ) => Promise<void>;
 };
 
 type ViewProductContext = {
@@ -42,37 +45,39 @@ type UserData = {
 
 type ProductAddToCart = {
   id: number;
-  name: string;
+  title: string;
   description: string;
   price: string;
   quantity: number;
-  photos: Photo[];
+  pictures: Picture[];
 };
 
 type Product = {
   id: number;
-  name: string;
+  title: string;
   description: string;
   price: string;
   quantity: number;
+  type: string;
   reviews: Review[];
-  photos: Photo[];
+  pictures: Picture[];
 };
 
-type Photo = {
+type Picture = {
   url: string;
 };
 
 type Review = {
   id: number;
   content: string;
+  rate: number;
   userId: number;
   email: string;
   name: string;
 };
 
 type NewProductData = {
-  name: string;
+  title: string;
   description: string;
   price: string;
   quantity: number;
