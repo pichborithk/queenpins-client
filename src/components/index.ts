@@ -6,3 +6,4 @@ export { default as ProductCard } from './ProductCard';
 export { default as SmallPictureCard } from './SmallPictureCard';
 export { default as ProductInCartCard } from './ProductInCartCard';
 export { default as DynamicInput } from './DynamicInput';
+export { default as Slider } from './Slider';

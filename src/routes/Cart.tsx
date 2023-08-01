@@ -5,15 +5,19 @@ import { checkOutCart } from '../helpers/fetchCheckout';
 
 const Cart = () => {
   const { token, cart, setCart } = useOutletContext<RootContext>();
+
   const totalPrice = cart
-    .map(product => parseInt(product.price) * Number(product.quantity))
+    .map(
+      product =>
+        Number(product.price.replace('$', '')) * Number(product.quantity)
+    )
     .reduce((a, b) => a + b, 0)
     .toFixed(2);
 
   async function handleCheckOut() {
     try {
       const result = await checkOutCart(token, cart);
-
+      console.log(result);
       location.replace(result.data.url);
     } catch (error) {
       console.error(error);
