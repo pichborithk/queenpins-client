@@ -14,7 +14,7 @@ const EditProduct = () => {
   const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(product.price);
   const [quantity, setQuantity] = useState(product.quantity.toString());
-  const [type, setType] = useState(product.type);
+  // const [type, setType] = useState(product.type);
   const [pictures, setPictures] = useState<string[]>(
     product.pictures.map(picture => picture.url)
   );

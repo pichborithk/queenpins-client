@@ -2,7 +2,7 @@ import { useOutletContext } from 'react-router-dom';
 import { ViewProductContext } from '../type';
 
 const ProductReviews = () => {
-  const { token, product } = useOutletContext<ViewProductContext>();
+  const { product } = useOutletContext<ViewProductContext>();
 
   return (
     <div className='flex w-full flex-col items-center gap-4'>
