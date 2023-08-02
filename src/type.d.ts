@@ -23,6 +23,7 @@ type ViewProductContext = {
   token: string;
   setProducts: Dispatch<SetStateAction<Product[]>>;
   product: Product;
+  userData: UserData;
 };
 
 type RegisterData = {

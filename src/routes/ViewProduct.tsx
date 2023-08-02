@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { addProductToCart } from '../helpers/fetchCarts';
 import { toast } from 'react-hot-toast';
 import { deleteProduct } from '../helpers/fetchProducts';
-import { SmallPictureCard } from '../components';
+// import { SmallPictureCard } from '../components';
 
 const ViewProduct = () => {
   const { token, products, cart, setCart, userData, setProducts } =
@@ -18,6 +18,7 @@ const ViewProduct = () => {
 
   const { productId } = useParams();
   const [orderAmount, setOrderAmount] = useState(1);
+  const [pictureIndex, setPictureIndex] = useState(0);
   const product = products.find(p => p.id === Number(productId));
 
   if (!product) {
@@ -84,7 +85,7 @@ const ViewProduct = () => {
   return (
     <>
       <div className='flex w-full gap-8'>
-        <div className='flex max-w-[120px] flex-col gap-2'>
+        {/* <div className='flex max-w-[120px] flex-col gap-2'>
           {product.pictures.map((picture, index) => (
             <SmallPictureCard
               url={picture.url}
@@ -92,9 +93,19 @@ const ViewProduct = () => {
               key={index}
             />
           ))}
-        </div>
-        <div className='flex-1'>
-          <img src={product.pictures[0]?.url} alt={product.title} />
+        </div> */}
+        <div className='flex flex-col gap-4'>
+          <img src={product.pictures[pictureIndex]?.url} alt={product.title} />
+          <div className='flex gap-4'>
+            {product.pictures.map((picture, index) => (
+              <img
+                src={picture?.url}
+                key={index}
+                onClick={() => setPictureIndex(index)}
+                className='h-16 cursor-pointer'
+              />
+            ))}
+          </div>
         </div>
         <div className='flex flex-1 flex-col gap-4'>
           <h2 className='text-3xl font-bold'>{product.title}</h2>
@@ -152,7 +163,7 @@ const ViewProduct = () => {
       </div>
       <hr className='my-4 w-full' />
       <div className='flex w-full justify-center'>
-        <Outlet context={{ token, setProducts, product }} />
+        <Outlet context={{ token, setProducts, product, userData }} />
       </div>
     </>
   );
