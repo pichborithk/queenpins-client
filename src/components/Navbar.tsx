@@ -26,8 +26,8 @@ const Navbar = ({ setToken, userData, setUserData, setCart }: Props) => {
   }
 
   return (
-    <nav className='mb-12 text-2xl font-bold text-purple-500'>
-      <div className='mx-auto mb-4 grid max-w-7xl grid-flow-col grid-cols-3 items-center justify-between px-2 py-2'>
+    <nav className='mb-12 text-2xl font-bold text-purple-500 shadow-full'>
+      <div className='mx-auto mb-4 grid max-w-7xl grid-flow-col grid-cols-3 items-end justify-between px-2 py-2'>
         <div className='flex gap-2'>
           <Link
             to='/'

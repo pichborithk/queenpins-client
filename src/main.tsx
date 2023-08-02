@@ -15,7 +15,7 @@ import {
   Home,
   Login,
   Register,
-  Reviews,
+  ProductReviews,
   ViewProduct,
 } from './routes';
 
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             path: ':productId',
             element: <ViewProduct />,
             children: [
-              { index: true, element: <Reviews /> },
+              { index: true, element: <ProductReviews /> },
               { path: 'edit', element: <EditProduct /> },
             ],
           },

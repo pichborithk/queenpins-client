@@ -118,7 +118,7 @@ const Root = () => {
         setUserData={setUserData}
         setCart={setCart}
       />
-      <div className='mx-auto mb-8 flex min-h-screen max-w-7xl flex-col items-center gap-4 px-20'>
+      <div className='mx-auto mb-8 flex min-h-screen max-w-7xl flex-col items-center gap-4'>
         <Outlet
           context={{
             products,
