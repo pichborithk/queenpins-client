@@ -84,3 +84,8 @@ type NewProductData = {
   quantity: number;
   urls: string[];
 };
+
+type NewReviewData = {
+  content: string;
+  rate: number;
+};
