@@ -1,3 +1,4 @@
+import UploadWidget from './UploadWidget';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 type Props = {
@@ -30,6 +31,12 @@ const DynamicInput = (props: Props) => {
     setValue(newValue);
   }
 
+  function handleUpload(index: number, url: string) {
+    const newValue = [...value];
+    newValue[index] = url;
+    setValue(newValue);
+  }
+
   return (
     <div className='flex w-full flex-col gap-2'>
       {value.map((element, index) => (
@@ -56,6 +63,7 @@ const DynamicInput = (props: Props) => {
             onChange={handleInput(index)}
             className='flex-1 rounded-md border border-slate-400 bg-inherit px-4  py-2 focus:outline-purple-500'
           />
+          <UploadWidget index={index} handleUpload={handleUpload} />
           <button
             type='button'
             className='rounded-md border border-purple-500 px-4 text-4xl hover:bg-purple-600 hover:text-purple-50'
