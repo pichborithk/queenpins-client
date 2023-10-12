@@ -5,13 +5,13 @@ import { ProductCard, Slider } from '../components';
 const Home = () => {
   const { products } = useOutletContext<RootContext>();
 
-  const newProducts = products.filter(product => product.type === 'new');
+  const newProducts = products?.filter(product => product.type === 'new');
 
-  const trendingProducts = products.filter(
+  const trendingProducts = products?.filter(
     product => product.type === 'trending'
   );
 
-  const saleProducts = products.filter(product => product.type === 'sale');
+  const saleProducts = products?.filter(product => product.type === 'sale');
 
   return (
     <>
@@ -21,7 +21,7 @@ const Home = () => {
       <div className='flex w-full flex-col gap-4 p-4 shadow-full'>
         <h2 className='text-2xl font-bold'>Selected for you</h2>
         <div className='flex gap-4 overflow-x-auto scroll-smooth'>
-          {newProducts.map(product => (
+          {newProducts?.map(product => (
             <ProductCard product={product} key={product.id} />
           ))}
         </div>
@@ -29,7 +29,7 @@ const Home = () => {
       <div className='flex w-full flex-col gap-4 p-4 shadow-full'>
         <h2 className='text-2xl font-bold'>Trending</h2>
         <div className='flex gap-4 overflow-x-auto scroll-smooth'>
-          {trendingProducts.map(product => (
+          {trendingProducts?.map(product => (
             <ProductCard product={product} key={product.id} />
           ))}
         </div>
